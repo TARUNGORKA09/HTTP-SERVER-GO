@@ -1,11 +1,12 @@
 package main
 
 import (
-	"handlers"
 	"log"
 	"net/http"
 	"os"
 	"time"
+
+	"github.com/TARUNGORKA09/HTTP-SERVER-GO/tree/main/HTTP_SERVER/handlers"
 )
 
 func main() {
