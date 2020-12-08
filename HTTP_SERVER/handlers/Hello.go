@@ -19,7 +19,7 @@ func (h *Hello) ServeHTTP(rw http.ResponseWriter,r *http.Request){
 	h.l.Print("Hello John\n")
 	d, err := ioutil.ReadAll(r.Body)
 	if err!= nil{
-		http.Error(w,"Oops", http.StatusBadRequest)
+		http.Error(rw,"Oops", http.StatusBadRequest)
 		return
 	}
 	log.Print("Data %s\n", d)
