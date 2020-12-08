@@ -2,17 +2,18 @@ package data
 
 import (
 	"time"
+	//"encoding/json"
 )
 
 type Product struct {
-	ID          int
-	Name        string
-	Description string
-	Price       float32
-	SKU         string
-	CreatedOn   string
-	DeletedOn   string
-	UpdatedOn   string
+	ID          int     `json:"id"`
+	Name        string  `json:"myname"`
+	Description string  `json:"description"`
+	Price       float32 `json:"price"`
+	SKU         string  `json:"sku"`
+	CreatedOn   string  `json:"-"`
+	DeletedOn   string  `json:"-"`
+	UpdatedOn   string  `json:"-"`
 }
 
 func GetProduct() []*Product {
