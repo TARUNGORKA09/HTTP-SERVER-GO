@@ -1,11 +1,11 @@
 package main
 
 import (
+	"github.com/TARUNGORKA09/HTTP-SERVER-GO/HTTP_SERVER/handlers"
 	"log"
 	"net/http"
 	"os"
 	"time"
-	"github.com/TARUNGORKA09/HTTP-SERVER-GO/HTTP_SERVER/handlers"
 )
 
 func main() {
@@ -29,6 +29,6 @@ func main() {
 	}
 	s.ListenAndServe()
 
-	//tc, _ := context.WithDeadline(context.Background(), 10*time.Now()
-	//s.Shutdown(t)
+	//tc, _ := context.WithDeadline(context.Background(), 30*time.Second)
+	//s.Shutdown(tc)
 }
