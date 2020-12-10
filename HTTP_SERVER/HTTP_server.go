@@ -1,29 +1,36 @@
 package main
 
 import (
-	"github.com/TARUNGORKA09/HTTP-SERVER-GO/HTTP_SERVER/handlers"
 	"log"
 	"net/http"
 	"os"
 	"time"
+
+	"github.com/TARUNGORKA09/HTTP-SERVER-GO/HTTP_SERVER/handlers"
+	"github.com/gorilla/mux"
 )
 
 func main() {
 
 	l := log.New(os.Stdout, "Product-API", log.LstdFlags)
-	hh := handlers.NewHello(l)
-	gb := handlers.NewGoodbye(l)
 	prod := handlers.NewProduct(l)
 
-	sm := http.NewServeMux()
-	sm.Handle("/", hh)
-	sm.Handle("/Goodbye", gb)
-	sm.Handle("/product", prod)
+	sm := mux.NewRouter()
+	getRouter := sm.Methods(http.MethodGet).Subrouter()
+	getRouter.HandleFunc("/{id:[0-9]+}", prod.GetProducts)
+	getRouter.Use(prod.MiddlewareValidateproduct)
 
+	putRouter := sm.Methods(http.MethodPut).Subrouter()
+	putRouter.HandleFunc("/{id:[0-9]+}", prod.UpdateProducts)
+	putRouter.Use(prod.MiddlewareValidateproduct)
+
+	postRouter := sm.Methods(http.MethodPost).Subrouter()
+	postRouter.HandleFunc("/addproduct", prod.Addproducts)
+	postRouter.Use(prod.MiddlewareValidateproduct)
 	s := &http.Server{
 		Addr:         ":8080",
 		Handler:      sm,
-		IdleTimeout:  120 * time.Second,
+		IdleTimeout :  120 * time.Second,	
 		ReadTimeout:  1 * time.Second,
 		WriteTimeout: 1 * time.Second,
 	}
